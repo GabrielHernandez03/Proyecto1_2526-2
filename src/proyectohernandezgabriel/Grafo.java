@@ -29,4 +29,10 @@ public class Grafo {
         }
     }
 
+    public void eliminarArista(int i, int j) {
+        matrizAdy[i][j] = false;
+        if (!dirigido) {
+            matrizAdy[j][i] = false;
+        }
+    }
 }
