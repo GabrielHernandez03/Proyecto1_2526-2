@@ -9,6 +9,7 @@ package proyectohernandezgabriel;
  * @author Gabriel
  */
 public class Grafo {
+
     boolean dirigido;
     int max_nodos;
     int num_vertices;
@@ -18,8 +19,14 @@ public class Grafo {
         this.max_nodos = max_nodos;
         this.num_vertices = num_vertices;
         dirigido = false;
-        matrizAdy = new boolean [max_nodos][max_nodos];
+        matrizAdy = new boolean[max_nodos][max_nodos];
     }
-    
-    
+
+    public void insertaArista(int i, int j) {
+        matrizAdy[i][j] = true;
+        if (!dirigido) {
+            matrizAdy[j][i] = matrizAdy[i][j];
+        }
+    }
+
 }
