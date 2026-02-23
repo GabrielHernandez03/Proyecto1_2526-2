@@ -13,6 +13,13 @@ public class Grafo {
     int max_nodos;
     int num_vertices;
     boolean matrizAdy[][];
+
+    public Grafo(int max_nodos, int num_vertices) {
+        this.max_nodos = max_nodos;
+        this.num_vertices = num_vertices;
+        dirigido = false;
+        matrizAdy = new boolean [max_nodos][max_nodos];
+    }
     
     
 }
