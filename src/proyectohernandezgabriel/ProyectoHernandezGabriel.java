@@ -6,7 +6,7 @@ package proyectohernandezgabriel;
 
 /**
  *
- * @author eduar
+ * @author Gabriel
  */
 public class ProyectoHernandezGabriel {
 
