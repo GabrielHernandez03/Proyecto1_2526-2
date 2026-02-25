@@ -6,7 +6,7 @@ package proyectohernandezgabriel.ventanas;
 
 /**
  *
- * @author eduar
+ * @author Gabriel
  */
 public class Principal extends javax.swing.JFrame {
     

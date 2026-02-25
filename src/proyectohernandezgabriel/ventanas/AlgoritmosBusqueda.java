@@ -6,7 +6,7 @@ package proyectohernandezgabriel.ventanas;
 
 /**
  *
- * @author eduar
+ * @author Gabriel
  */
 public class AlgoritmosBusqueda extends javax.swing.JFrame {
     

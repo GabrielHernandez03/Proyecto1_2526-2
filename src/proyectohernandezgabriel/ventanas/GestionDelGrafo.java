@@ -6,7 +6,7 @@ package proyectohernandezgabriel.ventanas;
 
 /**
  *
- * @author eduar
+ * @author Gabriel
  */
 public class GestionDelGrafo extends javax.swing.JFrame {
     
