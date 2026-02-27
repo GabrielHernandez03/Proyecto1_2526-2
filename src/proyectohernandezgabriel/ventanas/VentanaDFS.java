@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import proyectohernandezgabriel.Grafo;
+
 /**
  *
  * @author Gabriel
@@ -15,8 +17,13 @@ public class VentanaDFS extends javax.swing.JFrame {
     /**
      * Creates new form VentanaDFS
      */
-    public VentanaDFS() {
+     static Grafo matriz;
+    /**
+     * Creates new form AgregarProte
+     */
+    public VentanaDFS(Grafo matriz) {
         initComponents();
+        matriz = matriz;
     }
 
     /**
@@ -66,7 +73,7 @@ public class VentanaDFS extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaDFS().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new VentanaDFS(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
