@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import proyectohernandezgabriel.Grafo;
+
 /**
  *
  * @author Gabriel
@@ -11,12 +13,13 @@ package proyectohernandezgabriel.ventanas;
 public class AgregarProte extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AgregarProte.class.getName());
-
+    static Grafo matriz;
     /**
      * Creates new form AgregarProte
      */
-    public AgregarProte() {
+    public AgregarProte(Grafo matriz) {
         initComponents();
+        matriz = matriz;
     }
 
     /**
@@ -66,7 +69,7 @@ public class AgregarProte extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AgregarProte().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AgregarProte(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
