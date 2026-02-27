@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import proyectohernandezgabriel.Grafo;
+
 /**
  *
  * @author Gabriel
@@ -15,8 +17,13 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    static Grafo matriz;
+    /**
+     * Creates new form AgregarProte
+     */
+    public Principal(Grafo matriz) {
         initComponents();
+        matriz = matriz;
     }
 
     /**
@@ -66,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Principal().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Principal(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
