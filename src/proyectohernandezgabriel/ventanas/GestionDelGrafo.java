@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import proyectohernandezgabriel.Grafo;
+
 /**
  *
  * @author Gabriel
@@ -15,8 +17,13 @@ public class GestionDelGrafo extends javax.swing.JFrame {
     /**
      * Creates new form GestionDelGrafo
      */
-    public GestionDelGrafo() {
+   static Grafo matriz;
+    /**
+     * Creates new form AgregarProte
+     */
+    public GestionDelGrafo(Grafo matriz) {
         initComponents();
+        matriz = matriz;
     }
 
     /**
@@ -66,7 +73,7 @@ public class GestionDelGrafo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GestionDelGrafo().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new GestionDelGrafo(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
