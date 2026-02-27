@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import proyectohernandezgabriel.Grafo;
+
 /**
  *
  * @author Gabriel
@@ -15,8 +17,13 @@ public class EliminarProte extends javax.swing.JFrame {
     /**
      * Creates new form EliminarProte
      */
-    public EliminarProte() {
+    static Grafo matriz;
+    /**
+     * Creates new form AgregarProte
+     */
+    public EliminarProte(Grafo matriz) {
         initComponents();
+        matriz = matriz;
     }
 
     /**
@@ -66,7 +73,7 @@ public class EliminarProte extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new EliminarProte().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new EliminarProte(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
