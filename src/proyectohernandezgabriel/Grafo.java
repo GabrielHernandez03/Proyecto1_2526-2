@@ -55,4 +55,13 @@ public class Grafo {
     }
 
     
+    public void conectar(String p1, String p2, int peso) {
+        int i = buscarIndice(p1);
+        int j = buscarIndice(p2);
+        if (i != -1 && j != -1) {
+            matriz[i][j] = peso;
+            matriz[j][i] = peso;
+        }
+    }
+ 
 }
