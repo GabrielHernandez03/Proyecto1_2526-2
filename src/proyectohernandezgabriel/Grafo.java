@@ -11,18 +11,18 @@ package proyectohernandezgabriel;
 public class Grafo {
 
     private String[] proteinas;
-    private double[][] matriz;
+    private int[][] matriz;
     private int numProteinas;
     private int max = 100;
 
     public Grafo() {
         this.proteinas = new String[max];
-        this.matriz = new double[max][max];
+        this.matriz = new int[max][max];
         this.numProteinas = 0;
 
         for (int i = 0; i < max; i++) {
             for (int j = 0; j < max; j++) {
-                matriz[i][j] = 0.0;
+                matriz[i][j] = 0;
             }
         }
     }
@@ -83,7 +83,7 @@ public class Grafo {
         return hub;
     }
     
-    public String detectarComplejos() {
+    public String bfs() {
         boolean[] visitado = new boolean[numProteinas];
         String resultado = "Complejos Protecos:\n";
         int conta = 1;
@@ -116,5 +116,65 @@ public class Grafo {
         return resultado;
     }
 
+
+    
+    public String djakstra(String origen, String destino) {
+        int inicio = buscarIndice(origen);
+        int fin = buscarIndice(destino);
+        if (inicio == -1 || fin == -1){
+            return "Protena no encontrada";
+        }
+
+        int[] distancias = new int[numProteinas];
+        int[] ant = new int[numProteinas];
+        boolean[] visitado = new boolean[numProteinas];
+
+        for (int i = 0; i < numProteinas; i++) {
+            distancias[i] = Integer.MAX_VALUE;
+            ant[i] = -1;
+            visitado[i] = false;
+        }
+        
+        distancias[inicio] = 0;
+
+        for (int i = 0; i < numProteinas; i++) {
+            int u = -1;
+            for (int j = 0; j < numProteinas; j++) {
+                if (!visitado[j] && (u == -1 || distancias[j] < distancias[u])){
+                    u = j;
+                }
+            }
+
+            if (u == -1 || distancias[u] == Integer.MAX_VALUE){
+                break;
+            }
+            visitado[u] = true;
+
+            for (int v = 0; v < numProteinas; v++) {
+                if (matriz[u][v] > 0) {
+                    int alt = distancias[u] + matriz[u][v];
+                    if (alt < distancias[v]) {
+                        distancias[v] = alt;
+                        ant[v] = u;
+                    }
+                }
+            }
+        }
+
+        return djakstra_aux(ant, fin, distancias[fin]);
+    }
+
+    private String djakstra_aux(int[] prev, int fin, int dist) {
+        if (dist == Integer.MAX_VALUE) return "No existe ruta metabólica.";
+        String camino = "";
+        for (int at = fin; at != -1; at = prev[at]) {
+            if (camino.equals("")) {
+                camino = proteinas[at];
+            } else {
+                camino = proteinas[at] + " -> " + camino;
+            }
+        }
+        return "Ruta: " + camino + " (Resistencia total: " + dist + ")";
+    }
 
 }
