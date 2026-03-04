@@ -12,19 +12,32 @@ package proyectohernandezgabriel;
 
 public class Grafo {
     private String[] proteinas;
-    private double[][] matrizAdyacencia;
+    private double[][] matriz;
     private int numProteinas;
-    private final int MAX_PROTEINAS = 100;
+    private int max = 100;
 
     public Grafo() {
-        this.proteinas = new String[MAX_PROTEINAS];
-        this.matrizAdyacencia = new double[MAX_PROTEINAS][MAX_PROTEINAS];
+        this.proteinas = new String[max];
+        this.matriz = new double[max][max];
         this.numProteinas = 0;
         
-        for (int i = 0; i < MAX_PROTEINAS; i++) {
-            for (int j = 0; j < MAX_PROTEINAS; j++) {
-                matrizAdyacencia[i][j] = 0.0;
+        for (int i = 0; i < max; i++) {
+            for (int j = 0; j < max; j++) {
+                matriz[i][j] = 0.0;
             }
+        }
+    }
+    
+    private int buscarIndice(String nombre) {
+        for (int i = 0; i < numProteinas; i++) {
+            if (proteinas[i] != null && proteinas[i].equals(nombre)) return i;
+        }
+        return -1;
+    }
+    public void agregarProteina(String nombre) {
+        if (buscarIndice(nombre) == -1 && numProteinas < max) {
+            proteinas[numProteinas] = nombre;
+            numProteinas++;
         }
     }
 
