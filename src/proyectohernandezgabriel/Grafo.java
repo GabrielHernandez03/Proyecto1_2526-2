@@ -82,5 +82,39 @@ public class Grafo {
         }
         return hub;
     }
+    
+    public String detectarComplejos() {
+        boolean[] visitado = new boolean[numProteinas];
+        String resultado = "Complejos Protecos:\n";
+        int conta = 1;
+
+        for (int i = 0; i < numProteinas; i++) {
+            if (!visitado[i] && proteinas[i] != null) {
+                resultado += "Complejo " + conta + ": [ ";
+                conta++;
+                
+                int[] cola = new int[numProteinas];
+                int frente = 0, fin = 0;
+                
+                cola[fin++] = i;
+                visitado[i] = true;
+
+                while (frente < fin) {
+                    int actual = cola[frente++];
+                    resultado += proteinas[actual] + " ";
+                    
+                    for (int vecino = 0; vecino < numProteinas; vecino++) {
+                        if (matriz[actual][vecino] > 0 && !visitado[vecino]) {
+                            visitado[vecino] = true;
+                            cola[fin++] = vecino;
+                        }
+                    }
+                }
+                resultado += "]\n";
+            }
+        }
+        return resultado;
+    }
+
 
 }
