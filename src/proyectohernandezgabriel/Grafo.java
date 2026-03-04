@@ -8,44 +8,24 @@ package proyectohernandezgabriel;
  *
  * @author Gabriel
  */
+
+
 public class Grafo {
+    private String[] proteinas;
+    private double[][] matrizAdyacencia;
+    private int numProteinas;
+    private final int MAX_PROTEINAS = 100;
 
-    boolean dirigido;
-    int maxNodos;
-    int numVertices;
-    boolean matrizAdy[][];
-
-    public Grafo(int max_nodos, int num_vertices) {
-        this.maxNodos = max_nodos;
-        this.numVertices = num_vertices;
-        dirigido = false;
-        matrizAdy = new boolean[max_nodos][max_nodos];
-    }
-
-    public void insertaArista(int i, int j) {
-        matrizAdy[i][j] = true;
-        if (!dirigido) {
-            matrizAdy[j][i] = matrizAdy[i][j];
-        }
-    }
-
-    public void eliminarArista(int i, int j) {
-        matrizAdy[i][j] = false;
-        if (!dirigido) {
-            matrizAdy[j][i] = false;
-        }
-    }
-
-    public void insertaVertice(int n) {
-        if (n > maxNodos - numVertices) {
-            System.out.println("Error, se supera el número de nodos máximo");
-        } else {
-            for (int i = 0; i < numVertices + n; i++) {
-                for (int j = numVertices; j < numVertices + n; j++) {
-                    matrizAdy[i][j] = matrizAdy[j][i] = false;
-                }
+    public Grafo() {
+        this.proteinas = new String[MAX_PROTEINAS];
+        this.matrizAdyacencia = new double[MAX_PROTEINAS][MAX_PROTEINAS];
+        this.numProteinas = 0;
+        
+        for (int i = 0; i < MAX_PROTEINAS; i++) {
+            for (int j = 0; j < MAX_PROTEINAS; j++) {
+                matrizAdyacencia[i][j] = 0.0;
             }
-            numVertices = numVertices + n;
         }
     }
+
 }
