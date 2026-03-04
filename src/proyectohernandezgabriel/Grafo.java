@@ -8,9 +8,8 @@ package proyectohernandezgabriel;
  *
  * @author Gabriel
  */
-
-
 public class Grafo {
+
     private String[] proteinas;
     private double[][] matriz;
     private int numProteinas;
@@ -20,20 +19,23 @@ public class Grafo {
         this.proteinas = new String[max];
         this.matriz = new double[max][max];
         this.numProteinas = 0;
-        
+
         for (int i = 0; i < max; i++) {
             for (int j = 0; j < max; j++) {
                 matriz[i][j] = 0.0;
             }
         }
     }
-    
+
     private int buscarIndice(String nombre) {
         for (int i = 0; i < numProteinas; i++) {
-            if (proteinas[i] != null && proteinas[i].equals(nombre)) return i;
+            if (proteinas[i] != null && proteinas[i].equals(nombre)) {
+                return i;
+            }
         }
         return -1;
     }
+
     public void agregarProteina(String nombre) {
         if (buscarIndice(nombre) == -1 && numProteinas < max) {
             proteinas[numProteinas] = nombre;
@@ -41,8 +43,6 @@ public class Grafo {
         }
     }
 
-    
-    
     public void eliminarProteina(String nombre) {
         int idx = buscarIndice(nombre);
         if (idx != -1) {
@@ -50,11 +50,10 @@ public class Grafo {
                 matriz[idx][i] = 0;
                 matriz[i][idx] = 0;
             }
-            proteinas[idx] = null; 
+            proteinas[idx] = null;
         }
     }
 
-    
     public void conectar(String p1, String p2, int peso) {
         int i = buscarIndice(p1);
         int j = buscarIndice(p2);
@@ -63,5 +62,25 @@ public class Grafo {
             matriz[j][i] = peso;
         }
     }
- 
+
+    public String obtenerHubPrincipal() {
+        int gradomax = -1;
+        String hub = "";
+        for (int i = 0; i < numProteinas; i++) {
+            if (proteinas[i] != null) {
+                int gradoact = 0;
+                for (int j = 0; j < numProteinas; j++) {
+                    if (matriz[i][j] > 0) {
+                        gradoact++;
+                    }
+                }
+                if (gradoact > gradomax) {
+                    gradomax = gradoact;
+                    hub = proteinas[i];
+                }
+            }
+        }
+        return hub;
+    }
+
 }
