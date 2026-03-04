@@ -165,7 +165,9 @@ public class Grafo {
     }
 
     private String djakstra_aux(int[] prev, int fin, int dist) {
-        if (dist == Integer.MAX_VALUE) return "No existe ruta metabólica.";
+        if (dist == Integer.MAX_VALUE) {
+            return "No existe ruta metabolica";
+        }
         String camino = "";
         for (int at = fin; at != -1; at = prev[at]) {
             if (camino.equals("")) {
@@ -174,7 +176,35 @@ public class Grafo {
                 camino = proteinas[at] + " -> " + camino;
             }
         }
-        return "Ruta: " + camino + " (Resistencia total: " + dist + ")";
+        return "Ruta: " + camino + " (Resistencia: " + dist + ")";
+    }
+    
+
+    public String dfs() {
+        boolean[] visitado = new boolean[numProteinas];
+        String resultado = "Complejos:\n";
+        int conta = 1;
+
+        for (int i = 0; i < numProteinas; i++) {
+            if (!visitado[i] && proteinas[i] != null) {
+                resultado += "Complejo " + conta + ": [ ";
+                conta++;
+                resultado = auxiliarDFS(i, visitado, resultado);
+                resultado += "]\n";
+            }
+        }
+        return resultado;
+    }
+
+    private String auxiliarDFS(int actual, boolean[] visitado, String res) {
+        visitado[actual] = true;
+        res += proteinas[actual] + " ";
+        for (int v = 0; v < numProteinas; v++) {
+            if (matriz[actual][v] > 0 && !visitado[v]) {
+                res = auxiliarDFS(v, visitado, res);
+            }
+        }
+        return res;
     }
 
 }
