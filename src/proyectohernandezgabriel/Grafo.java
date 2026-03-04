@@ -41,4 +41,18 @@ public class Grafo {
         }
     }
 
+    
+    
+    public void eliminarProteina(String nombre) {
+        int idx = buscarIndice(nombre);
+        if (idx != -1) {
+            for (int i = 0; i < numProteinas; i++) {
+                matriz[idx][i] = 0;
+                matriz[i][idx] = 0;
+            }
+            proteinas[idx] = null; 
+        }
+    }
+
+    
 }
