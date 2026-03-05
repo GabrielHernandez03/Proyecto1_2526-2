@@ -11,12 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import proyectohernandezgabriel.Grafo;
-    import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
-import org.graphstream.ui.view.Viewer;
-import org.graphstream.ui.swing_viewer.SwingViewer;
-import org.graphstream.ui.swing_viewer.ViewPanel;
-import java.awt.BorderLayout;
+
 /**
  *
  * @author Gabriel
@@ -36,52 +31,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         matriz = matriz;
     }
-    
-
-
-private void dibujarGrafo() {
-    if (matriz == null || matriz.numProteinas == 0) {
-        return;
-    }
-
-    System.setProperty("org.graphstream.ui", "swing");
-    Graph graph = new SingleGraph("RedProteinas");
-
-    String stylesheet = 
-        "graph { fill-color: #222222; padding: 50px; }" +
-        "node { text-size: 18px; text-color: white; size: 25px; text-alignment: at-right; text-offset: 5px, 0px; }" +
-        "edge { fill-color: gray; size: 2px; }";
-    graph.setAttribute("ui.stylesheet", stylesheet);
-
-    for (int i = 0; i < matriz.numProteinas; i++) {
-        if (matriz.proteinas[i] != null) {
-            Node n = graph.addNode(matriz.proteinas[i]);
-            n.setAttribute("ui.label", matriz.proteinas[i]);
-        }
-    }
-    int edgeId = 0;
-    for (int i = 0; i < matriz.numProteinas; i++) {
-        for (int j = i; j < matriz.numProteinas; j++) {
-            if (matriz.matriz[i][j] > 0) {
-                String p1 = matriz.proteinas[i];
-                String p2 = matriz.proteinas[j];
-                graph.addEdge("e" + edgeId++, p1, p2);
-            }
-        }
-    }
-    
-    Viewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-    viewer.enableAutoLayout();
-    ViewPanel viewPanel = (ViewPanel) viewer.addDefaultView(false);
-
-    panelParaGrafo.removeAll(); 
-    panelParaGrafo.setLayout(new BorderLayout());
-    panelParaGrafo.add(viewPanel, BorderLayout.CENTER);
-    panelParaGrafo.revalidate();
-    panelParaGrafo.repaint();
-}
-
-    
+   
     public void guardarGrafoACSV(File archivo) {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
         for (int i = 0; i < matriz.numProteinas; i++) {
@@ -107,94 +57,145 @@ private void dibujarGrafo() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Detectar Complejos Proteicos");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
 
-        jButton2.setText("jButton1");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 153, 204));
+        jButton4.setText("Usando DFS");
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 170, -1));
 
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, -1));
+        jComboBox1.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 220, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 280, 280));
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Resultado");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, -1, -1));
+
+        jButton5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 153, 204));
+        jButton5.setText("CargarCSV");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Algoritmos de Búsqueda");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Escoge la Proteina B");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
+
+        jComboBox2.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 220, -1));
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Escoge la Proteina A");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        jButton6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 153, 204));
+        jButton6.setText("GuardarCSV");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 170, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
-        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
-    selector.setDialogTitle("Seleccione dónde guardar el CSV");
 
-    javax.swing.filechooser.FileNameExtensionFilter filtro = 
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Seleccione dónde guardar el CSV");
+
+        javax.swing.filechooser.FileNameExtensionFilter filtro =
         new javax.swing.filechooser.FileNameExtensionFilter("Archivo CSV (*.csv)", "csv");
-    selector.setFileFilter(filtro);
+        selector.setFileFilter(filtro);
 
-    int resultado = selector.showSaveDialog(this);
+        int resultado = selector.showSaveDialog(this);
 
-    if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
-        File archivo = selector.getSelectedFile();
-        
-        String ruta = archivo.getAbsolutePath();
-        if (!ruta.toLowerCase().endsWith(".csv")) {
-            archivo = new File(ruta + ".csv");
-        }
-       
-        this.guardarGrafoACSV(archivo);
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
+            File archivo = selector.getSelectedFile();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
-    int estado = selector.showOpenDialog(this);
-
-    if (estado == javax.swing.JFileChooser.APPROVE_OPTION) {
-        File archivo = selector.getSelectedFile();
-        
-        Grafo miGrafo = new Grafo();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split(",");
-                
-                if (partes.length >= 3) {
-                    String p1 = partes[0].trim();
-                    String p2 = partes[1].trim();
-                    int peso = Integer.parseInt(partes[2].trim());
-
-                    miGrafo.conectar(p1, p2, peso);
-                }
+            String ruta = archivo.getAbsolutePath();
+            if (!ruta.toLowerCase().endsWith(".csv")) {
+                archivo = new File(ruta + ".csv");
             }
-            
-            // Al terminar de leer, ejecutamos tu DFS
-            String resultado = miGrafo.dfs();
-            System.out.println(resultado); // O ponlo en un JTextArea
-            
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
-    }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+            this.guardarGrafoACSV(archivo);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        int estado = selector.showOpenDialog(this);
+
+        if (estado == javax.swing.JFileChooser.APPROVE_OPTION) {
+            File archivo = selector.getSelectedFile();
+
+            Grafo miGrafo = new Grafo();
+
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    String[] partes = linea.split(",");
+
+                    if (partes.length >= 3) {
+                        String p1 = partes[0].trim();
+                        String p2 = partes[1].trim();
+                        int peso = Integer.parseInt(partes[2].trim());
+
+                        miGrafo.conectar(p1, p2, peso);
+                    }
+                }
+                String resultado = miGrafo.dfs();
+                System.out.println(resultado);
+
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,9 +223,18 @@ private void dibujarGrafo() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
