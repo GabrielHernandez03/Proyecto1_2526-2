@@ -11,7 +11,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import proyectohernandezgabriel.Grafo;
-
+    import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.ViewPanel;
+import java.awt.BorderLayout;
 /**
  *
  * @author Gabriel
@@ -31,6 +36,50 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         matriz = matriz;
     }
+    
+
+
+private void dibujarGrafo() {
+    if (matriz == null || matriz.numProteinas == 0) {
+        return;
+    }
+
+    System.setProperty("org.graphstream.ui", "swing");
+    Graph graph = new SingleGraph("RedProteinas");
+
+    String stylesheet = 
+        "graph { fill-color: #222222; padding: 50px; }" +
+        "node { text-size: 18px; text-color: white; size: 25px; text-alignment: at-right; text-offset: 5px, 0px; }" +
+        "edge { fill-color: gray; size: 2px; }";
+    graph.setAttribute("ui.stylesheet", stylesheet);
+
+    for (int i = 0; i < matriz.numProteinas; i++) {
+        if (matriz.proteinas[i] != null) {
+            Node n = graph.addNode(matriz.proteinas[i]);
+            n.setAttribute("ui.label", matriz.proteinas[i]);
+        }
+    }
+    int edgeId = 0;
+    for (int i = 0; i < matriz.numProteinas; i++) {
+        for (int j = i; j < matriz.numProteinas; j++) {
+            if (matriz.matriz[i][j] > 0) {
+                String p1 = matriz.proteinas[i];
+                String p2 = matriz.proteinas[j];
+                graph.addEdge("e" + edgeId++, p1, p2);
+            }
+        }
+    }
+    
+    Viewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+    viewer.enableAutoLayout();
+    ViewPanel viewPanel = (ViewPanel) viewer.addDefaultView(false);
+
+    panelParaGrafo.removeAll(); 
+    panelParaGrafo.setLayout(new BorderLayout());
+    panelParaGrafo.add(viewPanel, BorderLayout.CENTER);
+    panelParaGrafo.revalidate();
+    panelParaGrafo.repaint();
+}
 
     
     public void guardarGrafoACSV(File archivo) {
@@ -61,6 +110,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,6 +124,10 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setText("jButton1");
         jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 400));
 
@@ -138,6 +192,10 @@ public class Principal extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -166,6 +224,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
