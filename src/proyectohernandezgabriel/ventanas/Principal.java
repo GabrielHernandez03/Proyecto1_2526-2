@@ -5,8 +5,11 @@
 package proyectohernandezgabriel.ventanas;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import proyectohernandezgabriel.Grafo;
 
 /**
@@ -29,6 +32,23 @@ public class Principal extends javax.swing.JFrame {
         matriz = matriz;
     }
 
+    
+    public void guardarGrafoACSV(File archivo) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+        for (int i = 0; i < matriz.numProteinas; i++) {
+            for (int j = i; j < matriz.numProteinas; j++) {
+                if (matriz.matriz[i][j] > 0) {
+                    String linea = matriz.proteinas[i] + "," + matriz.proteinas[j] + "," + matriz.matriz[i][j];
+                    bw.write(linea);
+                    bw.newLine();
+                }
+            }
+        }
+        javax.swing.JOptionPane.showMessageDialog(null, "Grafo guardado con éxito.");
+    } catch (IOException e) {
+        javax.swing.JOptionPane.showMessageDialog(null, "Error al escribir el archivo: " + e.getMessage());
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +82,26 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+    selector.setDialogTitle("Seleccione dónde guardar el CSV");
+
+    javax.swing.filechooser.FileNameExtensionFilter filtro = 
+        new javax.swing.filechooser.FileNameExtensionFilter("Archivo CSV (*.csv)", "csv");
+    selector.setFileFilter(filtro);
+
+    int resultado = selector.showSaveDialog(this);
+
+    if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
+        File archivo = selector.getSelectedFile();
+        
+        String ruta = archivo.getAbsolutePath();
+        if (!ruta.toLowerCase().endsWith(".csv")) {
+            archivo = new File(ruta + ".csv");
+        }
+       
+        this.guardarGrafoACSV(archivo);
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
