@@ -11,20 +11,23 @@ import proyectohernandezgabriel.Grafo;
  * @author Gabriel
  */
 public class GestionDelGrafo extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionDelGrafo.class.getName());
 
     /**
      * Creates new form GestionDelGrafo
      */
-   static Grafo matriz;
+    static Grafo matriz;
+
     /**
      * Creates new form AgregarProte
+     *
      * @param matriz
      */
     public GestionDelGrafo(Grafo matriz) {
         initComponents();
         GestionDelGrafo.matriz = matriz;
+        this.jTextArea1.setText(matriz.imprimir());
     }
 
     /**
@@ -45,6 +48,7 @@ public class GestionDelGrafo extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -52,6 +56,7 @@ public class GestionDelGrafo extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
@@ -68,6 +73,7 @@ public class GestionDelGrafo extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Calcular Hubs");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
@@ -78,22 +84,66 @@ public class GestionDelGrafo extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 153, 204));
         jButton3.setText("Algoritmos de Busqueda");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         jButton5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 153, 204));
         jButton5.setText("Agregar Proteina");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jButton6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 153, 204));
         jButton6.setText("Eliminar Proteina");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, -1));
+
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 153, 204));
+        jButton4.setText("Volver");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        AgregarProte a = new AgregarProte(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        EliminarProte a = new EliminarProte(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        AlgoritmosBusqueda a = new AlgoritmosBusqueda(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        VentanaHubs a = new VentanaHubs(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Principal a = new Principal(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +173,7 @@ public class GestionDelGrafo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel3;
