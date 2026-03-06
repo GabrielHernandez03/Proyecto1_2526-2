@@ -60,6 +60,7 @@ public class Grafo {
         if (i != -1 && j != -1) {
             matriz[i][j] = peso;
             matriz[j][i] = peso;
+            System.out.println("isjaoid");
         }
     }
 
@@ -222,4 +223,32 @@ public class Grafo {
         }
         return nombres;
     }
+    
+    public String imprimir() {
+    String reporte = "";
+    
+    if (numProteinas == 0) {
+        return reporte + "El grafo está vacio";
+    }
+
+    for (int i = 0; i < numProteinas; i++) {
+        if (proteinas[i] != null) {
+            reporte = reporte + "\nPROTEINA: [" + proteinas[i] + "]\n";
+            boolean tieneConexiones = false;
+
+            for (int j = 0; j < numProteinas; j++) {
+                if (matriz[i][j] > 0 && proteinas[j] != null) {
+                    reporte = reporte + "  -> Conectada con: " + proteinas[j] + " (Peso: " + matriz[i][j] + ")\n";
+                    tieneConexiones = true;
+                }
+            }
+
+            if (!tieneConexiones) {
+                reporte = reporte + "  (Sin conexiones activas)\n";
+            }
+            reporte = reporte + "---------------------------\n";
+        }
+    }
+    return reporte;
+}
 }
