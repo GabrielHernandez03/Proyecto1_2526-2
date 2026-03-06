@@ -4,6 +4,8 @@
  */
 package proyectohernandezgabriel;
 
+import proyectohernandezgabriel.ventanas.Principal;
+
 /**
  *
  * @author Gabriel
@@ -15,6 +17,8 @@ public class ProyectoHernandezGabriel {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Principal p = new Principal(new Grafo());
+        p.setVisible(true);
     }
     
 }
