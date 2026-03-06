@@ -21,14 +21,35 @@ public class MostrarGrafo extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MostrarGrafo.class.getName());
     static Grafo matriz;
+    private javax.swing.JButton volver;
 
     /**
      * Creates new form MostrarGrafo
+     *
      * @param matriz
      */
     public MostrarGrafo(Grafo matriz) {
         initComponents();
         MostrarGrafo.matriz = matriz;
+        volver = new javax.swing.JButton("Volver");
+
+        volver.setBackground(new java.awt.Color(50, 150, 250));
+        volver.setForeground(java.awt.Color.WHITE);
+
+        volver.addActionListener((java.awt.event.ActionEvent evt) -> {
+            Principal a = new Principal(matriz);
+            a.setVisible(true);
+            dispose();
+        });
+
+        this.add(volver, java.awt.BorderLayout.NORTH);
+
+        this.revalidate();
+        this.repaint();
+        this.dibujarGrafo();
+        this.setSize(800, 600); 
+    this.setLocationRelativeTo(null);
+
     }
 
     private void dibujarGrafo() {
@@ -85,10 +106,9 @@ public class MostrarGrafo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 430));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
