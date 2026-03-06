@@ -20,10 +20,11 @@ public class VentanaHubs extends javax.swing.JFrame {
     static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public VentanaHubs(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        VentanaHubs.matriz = matriz;
     }
 
     /**
