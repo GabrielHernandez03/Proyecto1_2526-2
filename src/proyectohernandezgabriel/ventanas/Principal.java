@@ -36,6 +36,11 @@ public class Principal extends javax.swing.JFrame {
         this.resultado.setText(matriz.imprimir());
     }
 
+    /**
+     * Toma toda la informacion de las proteinas y sus conexiones y las guarda en un archivo CSV.
+     * Recorre la matriz para escribir linea por linea quien se conecta con quien y el peso.
+     * * @param archivo El lugar o fichero donde quieres que se guarde toda la red.
+     */
     public void guardarGrafoACSV(File archivo) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             for (int i = 0; i < matriz.numProteinas; i++) {

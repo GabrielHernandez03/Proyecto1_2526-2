@@ -5,8 +5,9 @@
 package proyectohernandezgabriel;
 
 /**
- *
- * @author Gabriel
+ * Esta clase sirve para manejar una red de proteinas usando un grafo.
+ * Basicamente guarda nombres de proteinas y como se conectan entre ellas.
+ * * @author Gabriel
  */
 public class Grafo {
 
@@ -15,6 +16,10 @@ public class Grafo {
     public int numProteinas;
     private int max = 100;
 
+    /**
+     * Crea un grafo nuevo vacio con espacio para 100 proteinas.
+     * Deja la matriz en cero para que no haya conexiones al principio.
+     */
     public Grafo() {
         this.proteinas = new String[max];
         this.matriz = new int[max][max];
@@ -27,6 +32,11 @@ public class Grafo {
         }
     }
 
+    /**
+     * Busca en que posicion del arreglo esta guardada una proteina.
+     * * @param nombre El nombre de la proteina que quieres buscar.
+     * @return El numero de la posicion o -1 si no existe.
+     */
     private int buscarIndice(String nombre) {
         for (int i = 0; i < numProteinas; i++) {
             if (proteinas[i] != null && proteinas[i].equals(nombre)) {
@@ -36,6 +46,10 @@ public class Grafo {
         return -1;
     }
 
+    /**
+     * Mete una proteina nueva al sistema si todavia hay espacio.
+     * * @param nombre Como se llama la proteina que vas a meter.
+     */
     public void agregarProteina(String nombre) {
         if (buscarIndice(nombre) == -1 && numProteinas < max) {
             proteinas[numProteinas] = nombre;
@@ -43,6 +57,10 @@ public class Grafo {
         }
     }
 
+    /**
+     * Borra una proteina y quita todas las conexiones que tenia.
+     * * @param nombre El nombre de la proteina que quieres sacar.
+     */
     public void eliminarProteina(String nombre) {
         int idx = buscarIndice(nombre);
         if (idx != -1) {
@@ -54,6 +72,12 @@ public class Grafo {
         }
     }
 
+    /**
+     * Crea un camino o relacion entre dos proteinas con un valor de peso.
+     * * @param p1 Primera proteina.
+     * @param p2 Segunda proteina.
+     * @param peso Que tan fuerte es la conexion (un numero).
+     */
     public void conectar(String p1, String p2, int peso) {
         int i = buscarIndice(p1);
         int j = buscarIndice(p2);
@@ -64,6 +88,10 @@ public class Grafo {
         }
     }
 
+    /**
+     * Encuentra cual es la proteina mas popular, o sea, la que tiene mas conexiones.
+     * * @return El nombre de la proteina que mas amigos tiene.
+     */
     public String obtenerHubPrincipal() {
         int gradomax = -1;
         String hub = "";
@@ -84,6 +112,10 @@ public class Grafo {
         return hub;
     }
 
+    /**
+     * Agrupa las proteinas por familias usando una busqueda a lo ancho.
+     * * @return Un texto con la lista de grupos encontrados.
+     */
     public String bfs() {
         boolean[] visitado = new boolean[numProteinas];
         String resultado = "Complejos Protecos:\n";
@@ -117,6 +149,12 @@ public class Grafo {
         return resultado;
     }
 
+    /**
+     * Busca el camino mas corto o facil entre dos proteinas.
+     * * @param origen Desde donde empiezas.
+     * @param destino A donde quieres llegar.
+     * @return Un texto que dice toda la ruta y cuanto suma el peso total.
+     */
     public String djakstra(String origen, String destino) {
         int inicio = buscarIndice(origen);
         int fin = buscarIndice(destino);
@@ -163,6 +201,13 @@ public class Grafo {
         return djakstra_aux(ant, fin, distancias[fin]);
     }
 
+    /**
+     * Funcion de ayuda para armar el texto del camino encontrado por el djakstra.
+     * * @param prev Arreglo con los pasos anteriores.
+     * @param fin El punto de llegada.
+     * @param dist La distancia final calculada.
+     * @return El camino bien escrito en una frase.
+     */
     private String djakstra_aux(int[] prev, int fin, int dist) {
         if (dist == Integer.MAX_VALUE) {
             return "No existe ruta metabolica";
@@ -178,6 +223,10 @@ public class Grafo {
         return "Ruta: " + camino + " (Resistencia: " + dist + ")";
     }
 
+    /**
+     * Otra forma de agrupar proteinas pero usando busqueda en profundidad.
+     * * @return Texto con los complejos de proteinas encontrados.
+     */
     public String dfs() {
         boolean[] visitado = new boolean[numProteinas];
         String resultado = "Complejos:\n";
@@ -194,6 +243,13 @@ public class Grafo {
         return resultado;
     }
 
+    /**
+     * Funcion de ayuda que se llama a si misma para recorrer el grafo hacia abajo.
+     * * @param actual La proteina donde estas ahorita.
+     * @param visitado El registro de quienes ya vimos.
+     * @param res El texto que vamos armando.
+     * @return El texto actualizado con las nuevas proteinas encontradas.
+     */
     private String auxiliarDFS(int actual, boolean[] visitado, String res) {
         visitado[actual] = true;
         res += proteinas[actual] + " ";
@@ -205,6 +261,10 @@ public class Grafo {
         return res;
     }
 
+    /**
+     * Saca una lista limpia con solo los nombres de las proteinas que existen (sin huecos null).
+     * * @return Un arreglo de palabras con los nombres.
+     */
     public String[] obtenerNombresProteinas() {
         int contador = 0;
         for (int i = 0; i < numProteinas; i++) {
@@ -223,7 +283,11 @@ public class Grafo {
         }
         return nombres;
     }
-    
+
+    /**
+     * Muestra toda la red en un texto largo para ver quien se conecta con quien.
+     * * @return Un reporte gigante con toda la info de la matriz.
+     */
     public String imprimir() {
     String reporte = "";
     

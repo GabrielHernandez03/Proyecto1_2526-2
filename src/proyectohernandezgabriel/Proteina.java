@@ -5,40 +5,43 @@
 package proyectohernandezgabriel;
 
 /**
- *
- * @author Gabriel
+ * Esta clase es como una ficha tecnica para cada proteina.
+ * Solo guarda su nombre y que tan pesada es la conexion.
+ * * @author Gabriel
  */
 public class Proteina {
     private String nombre;
     private int peso;
 
     /**
-     * @return the nombre
+     * Sirve para saber como se llama la proteina.
+     * * @return El nombre que tiene guardado.
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * @param nombre the nombre to set
+     * Se usa para ponerle o cambiarle el nombre a la proteina.
+     * * @param nombre El nuevo nombre que le quieres poner.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * @return the peso
+     * Te dice cual es el valor del peso o fuerza que tiene.
+     * * @return El numero del peso actual.
      */
     public int getPeso() {
         return peso;
     }
 
     /**
-     * @param peso the peso to set
+     * Sirve para asignarle un valor numerico al peso.
+     * * @param peso El numero que vas a guardar como peso.
      */
     public void setPeso(int peso) {
         this.peso = peso;
     }
-    
-    
 }

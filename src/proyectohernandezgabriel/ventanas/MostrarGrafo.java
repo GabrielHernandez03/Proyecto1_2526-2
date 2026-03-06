@@ -46,13 +46,19 @@ public class MostrarGrafo extends javax.swing.JFrame {
 
         this.revalidate();
         this.repaint();
-        this.dibujarGrafo();
+        this.graficar();
         this.setSize(800, 600); 
     this.setLocationRelativeTo(null);
 
     }
-
-    private void dibujarGrafo() {
+/**
+     * Este metodo se encarga de dibujar la red de proteinas de forma visual.
+     * Usa la libreria GraphStream para crear nodos por cada proteina y lineas
+     * para las conexiones, aplicandoles un estilo oscuro y moderno.
+     * Al final, mete todo el dibujo dentro de un panel de la interfaz para que
+     * el usuario lo pueda ver.
+     */
+    private void graficar() {
         if (matriz == null || matriz.numProteinas == 0) {
             return;
         }
@@ -93,7 +99,6 @@ public class MostrarGrafo extends javax.swing.JFrame {
         this.jPanel1.revalidate();
         this.jPanel1.repaint();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
