@@ -4,6 +4,7 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectohernandezgabriel.Grafo;
 
 /**
@@ -11,20 +12,39 @@ import proyectohernandezgabriel.Grafo;
  * @author Gabriel
  */
 public class AlgoritmosBusqueda extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlgoritmosBusqueda.class.getName());
 
     /**
      * Creates new form AlgoritmosBusqueda
      */
     static Grafo matriz;
+
     /**
      * Creates new form AgregarProte
+     *
      * @param matriz
      */
     public AlgoritmosBusqueda(Grafo matriz) {
         initComponents();
         AlgoritmosBusqueda.matriz = matriz;
+        this.resultado.setText(matriz.imprimir());
+
+        origen.removeAllItems();
+
+        String[] lista = matriz.obtenerNombresProteinas();
+
+        for (String nombre : lista) {
+            origen.addItem(nombre);
+        }
+
+        destino.removeAllItems();
+
+        String[] lista2 = matriz.obtenerNombresProteinas();
+
+        for (String nombre : lista2) {
+            destino.addItem(nombre);
+        }
     }
 
     /**
@@ -39,16 +59,17 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        destino = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resultado = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        origen = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,17 +85,19 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 153, 204));
         jButton1.setText("Usando DFS");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 170, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 220, -1));
+        destino.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        destino.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(destino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 220, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        resultado.setEditable(false);
+        resultado.setColumns(20);
+        resultado.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        resultado.setForeground(new java.awt.Color(0, 153, 204));
+        resultado.setRows(5);
+        jScrollPane1.setViewportView(resultado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 280, 280));
 
@@ -86,6 +109,7 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Ver Ruta más Corta");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
@@ -98,9 +122,9 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
         jLabel5.setText("Escoge la Proteina B");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 220, -1));
+        origen.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        origen.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(origen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 220, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,12 +134,53 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 153, 204));
         jButton3.setText("Usando BFS");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 170, -1));
+
+        jButton4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 153, 204));
+        jButton4.setText("Volver");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            this.resultado.setText(matriz.djakstra(this.origen.getSelectedItem().toString(), destino.getSelectedItem().toString()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try {
+            this.resultado.setText(matriz.bfs());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            this.resultado.setText(matriz.dfs());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        GestionDelGrafo a = new GestionDelGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,11 +208,11 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> destino;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -155,6 +220,7 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JComboBox<String> origen;
+    private javax.swing.JTextArea resultado;
     // End of variables declaration//GEN-END:variables
 }
