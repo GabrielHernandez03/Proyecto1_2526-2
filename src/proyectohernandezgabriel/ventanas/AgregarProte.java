@@ -4,6 +4,7 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectohernandezgabriel.Grafo;
 
 /**
@@ -11,16 +12,26 @@ import proyectohernandezgabriel.Grafo;
  * @author Gabriel
  */
 public class AgregarProte extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AgregarProte.class.getName());
     static Grafo matriz;
+
     /**
      * Creates new form AgregarProte
+     *
      * @param matriz
      */
     public AgregarProte(Grafo matriz) {
         initComponents();
         AgregarProte.matriz = matriz;
+        destinos.removeAllItems();
+
+        String[] lista = matriz.obtenerNombresProteinas();
+
+        for (String nombre : lista) {
+            destinos.addItem(nombre);
+        }
+        grafo.setText(matriz.imprimir());
     }
 
     /**
@@ -35,17 +46,18 @@ public class AgregarProte extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        destinos = new javax.swing.JComboBox<>();
+        peso = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        grafo = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        nombreA = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,21 +73,23 @@ public class AgregarProte extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 153, 204));
         jButton1.setText("Unir");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 120, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 210, -1));
+        destinos.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        destinos.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(destinos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 210, -1));
 
-        jTextField1.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 190, -1));
+        peso.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        peso.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 190, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        grafo.setEditable(false);
+        grafo.setColumns(20);
+        grafo.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        grafo.setForeground(new java.awt.Color(0, 153, 204));
+        grafo.setRows(5);
+        jScrollPane1.setViewportView(grafo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 280, 280));
 
@@ -93,16 +107,16 @@ public class AgregarProte extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Agregar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Agregar Proteina");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 230, -1));
+        nombreA.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        nombreA.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(nombreA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,6 +128,12 @@ public class AgregarProte extends javax.swing.JFrame {
         jLabel6.setText("Ingresa el nombre:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 153, 204));
+        jButton3.setText("Volver");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 440));
 
         pack();
@@ -121,7 +141,40 @@ public class AgregarProte extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        try {
+            matriz.agregarProteina(this.nombreA.getText());
+            this.grafo.setText(matriz.imprimir());
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (this.nombreA.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar la proteina de origen");
+                return;
+            }
+            if(this.peso.getText().equals("0")){
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un peso valido");
+                return;
+            }
+            matriz.conectar(this.nombreA.getText(), this.destinos.getSelectedItem().toString(), Integer.parseInt(this.peso.getText()));
+            this.grafo.setText(matriz.imprimir());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Introduzca un numero para el peso");
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        GestionDelGrafo a = new GestionDelGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,9 +202,11 @@ public class AgregarProte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> destinos;
+    private javax.swing.JTextArea grafo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -160,8 +215,7 @@ public class AgregarProte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nombreA;
+    private javax.swing.JTextField peso;
     // End of variables declaration//GEN-END:variables
 }
