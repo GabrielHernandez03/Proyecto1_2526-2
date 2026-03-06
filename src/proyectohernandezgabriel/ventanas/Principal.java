@@ -17,38 +17,42 @@ import proyectohernandezgabriel.Grafo;
  * @author Gabriel
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Principal.class.getName());
 
     /**
      * Creates new form Principal
      */
     static Grafo matriz;
+
     /**
      * Creates new form AgregarProte
+     *
      * @param matriz
      */
     public Principal(Grafo matriz) {
         initComponents();
         Principal.matriz = matriz;
+        this.resultado.setText(matriz.imprimir());
     }
-   
+
     public void guardarGrafoACSV(File archivo) {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-        for (int i = 0; i < matriz.numProteinas; i++) {
-            for (int j = i; j < matriz.numProteinas; j++) {
-                if (matriz.matriz[i][j] > 0) {
-                    String linea = matriz.proteinas[i] + "," + matriz.proteinas[j] + "," + matriz.matriz[i][j];
-                    bw.write(linea);
-                    bw.newLine();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+            for (int i = 0; i < matriz.numProteinas; i++) {
+                for (int j = i; j < matriz.numProteinas; j++) {
+                    if (matriz.matriz[i][j] > 0) {
+                        String linea = matriz.proteinas[i] + "," + matriz.proteinas[j] + "," + matriz.matriz[i][j];
+                        bw.write(linea);
+                        bw.newLine();
+                    }
                 }
             }
+            javax.swing.JOptionPane.showMessageDialog(null, "Grafo guardado con éxito.");
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al escribir el archivo: " + e.getMessage());
         }
-        javax.swing.JOptionPane.showMessageDialog(null, "Grafo guardado con éxito.");
-    } catch (IOException e) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Error al escribir el archivo: " + e.getMessage());
     }
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,18 +63,14 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resultado = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,65 +78,50 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 153, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Detectar Complejos Proteicos");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
-
         jButton4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 153, 204));
-        jButton4.setText("Usando DFS");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 170, -1));
+        jButton4.setText("Ver Grafo");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 220, 50));
 
-        jComboBox1.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 220, -1));
+        resultado.setEditable(false);
+        resultado.setColumns(20);
+        resultado.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        resultado.setForeground(new java.awt.Color(0, 153, 204));
+        resultado.setRows(5);
+        jScrollPane1.setViewportView(resultado);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 280, 280));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 280, 290));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Resultado");
+        jLabel3.setText("Grafo actual:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, -1, -1));
 
         jButton5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 153, 204));
         jButton5.setText("CargarCSV");
         jButton5.addActionListener(this::jButton5ActionPerformed);
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, -1, -1));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 220, 50));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Algoritmos de Búsqueda");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Escoge la Proteina B");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
-
-        jComboBox2.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 220, -1));
-
-        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Escoge la Proteina A");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jLabel4.setText("BIOGRAPH");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
 
         jButton6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 153, 204));
         jButton6.setText("GuardarCSV");
         jButton6.addActionListener(this::jButton6ActionPerformed);
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 170, -1));
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 220, 50));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 440));
+        jButton7.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 153, 204));
+        jButton7.setText("Gestion del Grafo");
+        jButton7.addActionListener(this::jButton7ActionPerformed);
+        jPanel2.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 220, 50));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,16 +129,18 @@ public class Principal extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
 
-        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        String rutaP = System.getProperty("user.dir");
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser(rutaP);
         selector.setDialogTitle("Seleccione dónde guardar el CSV");
 
-        javax.swing.filechooser.FileNameExtensionFilter filtro =
-        new javax.swing.filechooser.FileNameExtensionFilter("Archivo CSV (*.csv)", "csv");
+        javax.swing.filechooser.FileNameExtensionFilter filtro
+                = new javax.swing.filechooser.FileNameExtensionFilter("Archivo CSV (*.csv)", "csv");
         selector.setFileFilter(filtro);
 
-        int resultado = selector.showSaveDialog(this);
+        int guardado = selector.showSaveDialog(this);
 
-        if (resultado == javax.swing.JFileChooser.APPROVE_OPTION) {
+        if (guardado == javax.swing.JFileChooser.APPROVE_OPTION) {
             File archivo = selector.getSelectedFile();
 
             String ruta = archivo.getAbsolutePath();
@@ -168,7 +155,9 @@ public class Principal extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
 
-        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        String ruta = System.getProperty("user.dir");
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser(ruta);
         int estado = selector.showOpenDialog(this);
 
         if (estado == javax.swing.JFileChooser.APPROVE_OPTION) {
@@ -185,18 +174,34 @@ public class Principal extends javax.swing.JFrame {
                         String p1 = partes[0].trim();
                         String p2 = partes[1].trim();
                         int peso = Integer.parseInt(partes[2].trim());
+                        miGrafo.agregarProteina(p1);
+                        miGrafo.agregarProteina(p2);
 
                         miGrafo.conectar(p1, p2, peso);
                     }
                 }
-                String resultado = miGrafo.dfs();
-                System.out.println(resultado);
+                matriz = miGrafo;
+                this.resultado.setText(matriz.imprimir());
 
             } catch (Exception e) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        MostrarGrafo a = new MostrarGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        GestionDelGrafo a = new GestionDelGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,15 +232,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea resultado;
     // End of variables declaration//GEN-END:variables
 }
