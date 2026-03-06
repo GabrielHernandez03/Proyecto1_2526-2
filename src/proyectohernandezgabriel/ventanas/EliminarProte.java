@@ -4,6 +4,7 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectohernandezgabriel.Grafo;
 
 /**
@@ -11,20 +12,29 @@ import proyectohernandezgabriel.Grafo;
  * @author Gabriel
  */
 public class EliminarProte extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EliminarProte.class.getName());
 
     /**
      * Creates new form EliminarProte
      */
     static Grafo matriz;
+
     /**
      * Creates new form AgregarProte
+     *
      * @param matriz
      */
     public EliminarProte(Grafo matriz) {
         initComponents();
         EliminarProte.matriz = matriz;
+        proteina.removeAllItems();
+
+        String[] lista = matriz.obtenerNombresProteinas();
+
+        for (String nombre : lista) {
+            proteina.addItem(nombre);
+        }
     }
 
     /**
@@ -38,12 +48,13 @@ public class EliminarProte extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resultado = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        proteina = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,11 +62,12 @@ public class EliminarProte extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        resultado.setEditable(false);
+        resultado.setColumns(20);
+        resultado.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        resultado.setForeground(new java.awt.Color(0, 153, 204));
+        resultado.setRows(5);
+        jScrollPane1.setViewportView(resultado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 480, 180));
 
@@ -64,9 +76,9 @@ public class EliminarProte extends javax.swing.JFrame {
         jLabel4.setText("Eliminar Proteina");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 153, 204));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 330, -1));
+        proteina.setFont(new java.awt.Font("Calibri", 2, 24)); // NOI18N
+        proteina.setForeground(new java.awt.Color(0, 153, 204));
+        jPanel1.add(proteina, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 330, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,6 +88,7 @@ public class EliminarProte extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
@@ -83,10 +96,40 @@ public class EliminarProte extends javax.swing.JFrame {
         jLabel7.setText("Escoge la Proteina A Eliminar");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 153, 204));
+        jButton3.setText("Volver");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 10, 100, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            matriz.eliminarProteina(this.proteina.getSelectedItem().toString());
+            this.resultado.setText(matriz.imprimir());
+            proteina.removeAllItems();
+
+            String[] lista = matriz.obtenerNombresProteinas();
+
+            for (String nombre : lista) {
+                proteina.addItem(nombre);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        GestionDelGrafo a = new GestionDelGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,12 +158,13 @@ public class EliminarProte extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JComboBox<String> proteina;
+    private javax.swing.JTextArea resultado;
     // End of variables declaration//GEN-END:variables
 }
