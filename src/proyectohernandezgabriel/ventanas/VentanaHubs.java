@@ -4,6 +4,7 @@
  */
 package proyectohernandezgabriel.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectohernandezgabriel.Grafo;
 
 /**
@@ -25,6 +26,7 @@ public class VentanaHubs extends javax.swing.JFrame {
     public VentanaHubs(Grafo matriz) {
         initComponents();
         VentanaHubs.matriz = matriz;
+        this.grafo.setText(matriz.imprimir());
     }
 
     /**
@@ -38,12 +40,13 @@ public class VentanaHubs extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        hubs = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        grafo = new javax.swing.JTextArea();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,11 +54,12 @@ public class VentanaHubs extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        hubs.setEditable(false);
+        hubs.setColumns(20);
+        hubs.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        hubs.setForeground(new java.awt.Color(0, 153, 204));
+        hubs.setRows(5);
+        jScrollPane1.setViewportView(hubs);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 420, 80));
 
@@ -67,6 +71,7 @@ public class VentanaHubs extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Identificar Hubs");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
@@ -74,18 +79,41 @@ public class VentanaHubs extends javax.swing.JFrame {
         jLabel4.setText("Ventana Hubs");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jTextArea2.setForeground(new java.awt.Color(0, 153, 204));
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        grafo.setEditable(false);
+        grafo.setColumns(20);
+        grafo.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        grafo.setForeground(new java.awt.Color(0, 153, 204));
+        grafo.setRows(5);
+        jScrollPane2.setViewportView(grafo);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 280, 280));
+
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 153, 204));
+        jButton3.setText("Volver");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+            this.hubs.setText(matriz.obtenerHubPrincipal());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        GestionDelGrafo a = new GestionDelGrafo(matriz);
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,13 +141,14 @@ public class VentanaHubs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea grafo;
+    private javax.swing.JTextArea hubs;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }
