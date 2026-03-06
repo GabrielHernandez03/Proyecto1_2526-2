@@ -82,7 +82,7 @@ public class Grafo {
         }
         return hub;
     }
-    
+
     public String bfs() {
         boolean[] visitado = new boolean[numProteinas];
         String resultado = "Complejos Protecos:\n";
@@ -92,17 +92,17 @@ public class Grafo {
             if (!visitado[i] && proteinas[i] != null) {
                 resultado += "Complejo " + conta + ": [ ";
                 conta++;
-                
+
                 int[] cola = new int[numProteinas];
                 int frente = 0, fin = 0;
-                
+
                 cola[fin++] = i;
                 visitado[i] = true;
 
                 while (frente < fin) {
                     int actual = cola[frente++];
                     resultado += proteinas[actual] + " ";
-                    
+
                     for (int vecino = 0; vecino < numProteinas; vecino++) {
                         if (matriz[actual][vecino] > 0 && !visitado[vecino]) {
                             visitado[vecino] = true;
@@ -116,12 +116,10 @@ public class Grafo {
         return resultado;
     }
 
-
-    
     public String djakstra(String origen, String destino) {
         int inicio = buscarIndice(origen);
         int fin = buscarIndice(destino);
-        if (inicio == -1 || fin == -1){
+        if (inicio == -1 || fin == -1) {
             return "Protena no encontrada";
         }
 
@@ -134,18 +132,18 @@ public class Grafo {
             ant[i] = -1;
             visitado[i] = false;
         }
-        
+
         distancias[inicio] = 0;
 
         for (int i = 0; i < numProteinas; i++) {
             int u = -1;
             for (int j = 0; j < numProteinas; j++) {
-                if (!visitado[j] && (u == -1 || distancias[j] < distancias[u])){
+                if (!visitado[j] && (u == -1 || distancias[j] < distancias[u])) {
                     u = j;
                 }
             }
 
-            if (u == -1 || distancias[u] == Integer.MAX_VALUE){
+            if (u == -1 || distancias[u] == Integer.MAX_VALUE) {
                 break;
             }
             visitado[u] = true;
@@ -178,7 +176,6 @@ public class Grafo {
         }
         return "Ruta: " + camino + " (Resistencia: " + dist + ")";
     }
-    
 
     public String dfs() {
         boolean[] visitado = new boolean[numProteinas];
@@ -207,4 +204,22 @@ public class Grafo {
         return res;
     }
 
+    public String[] obtenerNombresProteinas() {
+        int contador = 0;
+        for (int i = 0; i < numProteinas; i++) {
+            if (proteinas[i] != null) {
+                contador++;
+            }
+        }
+
+        String[] nombres = new String[contador];
+        int aux = 0;
+        for (int i = 0; i < numProteinas; i++) {
+            if (proteinas[i] != null) {
+                nombres[aux] = proteinas[i];
+                aux++;
+            }
+        }
+        return nombres;
+    }
 }
