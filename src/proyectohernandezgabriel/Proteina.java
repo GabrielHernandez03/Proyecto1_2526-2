@@ -7,6 +7,7 @@ package proyectohernandezgabriel;
 /**
  * Esta clase es como una ficha tecnica para cada proteina.
  * Solo guarda su nombre y que tan pesada es la conexion.
+ *  q  Al final, esta clase NO se utilizo, pero decidi dejarla
  * * @author Gabriel
  */
 public class Proteina {
