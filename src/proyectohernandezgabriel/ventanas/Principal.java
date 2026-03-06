@@ -26,10 +26,11 @@ public class Principal extends javax.swing.JFrame {
     static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public Principal(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        Principal.matriz = matriz;
     }
    
     public void guardarGrafoACSV(File archivo) {

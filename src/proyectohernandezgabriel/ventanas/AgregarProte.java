@@ -16,10 +16,11 @@ public class AgregarProte extends javax.swing.JFrame {
     static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public AgregarProte(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        AgregarProte.matriz = matriz;
     }
 
     /**
@@ -91,6 +92,7 @@ public class AgregarProte extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 204));
         jButton2.setText("Agregar");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
@@ -116,6 +118,10 @@ public class AgregarProte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

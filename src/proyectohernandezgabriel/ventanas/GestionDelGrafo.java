@@ -20,10 +20,11 @@ public class GestionDelGrafo extends javax.swing.JFrame {
    static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public GestionDelGrafo(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        GestionDelGrafo.matriz = matriz;
     }
 
     /**

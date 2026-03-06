@@ -11,7 +11,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
-import static proyectohernandezgabriel.ventanas.Principal.matriz;
+import proyectohernandezgabriel.Grafo;
 
 /**
  *
@@ -20,12 +20,15 @@ import static proyectohernandezgabriel.ventanas.Principal.matriz;
 public class MostrarGrafo extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MostrarGrafo.class.getName());
+    static Grafo matriz;
 
     /**
      * Creates new form MostrarGrafo
+     * @param matriz
      */
-    public MostrarGrafo() {
+    public MostrarGrafo(Grafo matriz) {
         initComponents();
+        MostrarGrafo.matriz = matriz;
     }
 
     private void dibujarGrafo() {
@@ -112,7 +115,7 @@ public class MostrarGrafo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MostrarGrafo().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MostrarGrafo(matriz).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

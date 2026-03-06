@@ -20,10 +20,11 @@ public class EliminarProte extends javax.swing.JFrame {
     static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public EliminarProte(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        EliminarProte.matriz = matriz;
     }
 
     /**

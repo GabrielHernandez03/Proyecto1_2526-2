@@ -10,9 +10,9 @@ package proyectohernandezgabriel;
  */
 public class Grafo {
 
-    private String[] proteinas;
-    private int[][] matriz;
-    private int numProteinas;
+    public String[] proteinas;
+    public int[][] matriz;
+    public int numProteinas;
     private int max = 100;
 
     public Grafo() {

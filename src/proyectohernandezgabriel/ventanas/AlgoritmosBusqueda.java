@@ -20,10 +20,11 @@ public class AlgoritmosBusqueda extends javax.swing.JFrame {
     static Grafo matriz;
     /**
      * Creates new form AgregarProte
+     * @param matriz
      */
     public AlgoritmosBusqueda(Grafo matriz) {
         initComponents();
-        matriz = matriz;
+        AlgoritmosBusqueda.matriz = matriz;
     }
 
     /**
