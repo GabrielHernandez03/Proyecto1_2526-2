@@ -15,7 +15,7 @@ import proyectohernandezgabriel.Grafo;
 
 /**
  *
- * @author eduar
+ * @author Gabriel
  */
 public class MostrarGrafo extends javax.swing.JFrame {
 
